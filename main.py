@@ -1,33 +1,27 @@
+import random
 from tkinter import *
-from random import choice
+
 import pandas as pd
 
 # ---------------------------- CONSTANTS ------------------------------- #
 BACKGROUND_COLOR = "#B1DDC6"
 FONT_NAME = "Ariel"
-# word_pair = {}
 current_card = {}
 try:
     data = pd.read_csv("data/words_to_learn.csv")
     word_list = [{row.French: row.English} for index, row in data.iterrows()]
 except FileNotFoundError:
-    # data = pd.read_csv("data/french_words.csv")
     original_data = pd.read_csv("data/french_words.csv")
     to_learn = original_data.to_dict(orient="records")
-# finally:
-# to_learn = data.to_dict(orient="records")
 else:
     to_learn = data.to_dict(orient="records")
 
 
 # ---------------------------- MECHANISM ------------------------------- #
 def next_card():
-    # global word_pair
-    # word_pair = choice(word_list)
-    # fr = list(word_pair.keys())[0]
     global current_card, timer
     window.after_cancel(timer)
-    current_card = choice(to_learn)
+    current_card = random.choice(to_learn)
     fr = current_card["French"]
     canvas.itemconfig(card_title, text="French", fill="black")
     canvas.itemconfig(card_word, text=fr, fill="black")
@@ -36,11 +30,8 @@ def next_card():
 
 
 def flip_card():
-    # global word_pair
-    # word_pair = choice(word_list)
-    # en = list(word_pair.values())[0]
     global current_card
-    current_card = choice(to_learn)
+    current_card = random.choice(to_learn)
     en = current_card["English"]
     canvas.itemconfig(card_title, text="English", fill="white")
     canvas.itemconfig(card_word, text=en, fill="white")
