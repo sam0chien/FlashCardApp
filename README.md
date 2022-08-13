@@ -1,1 +1,2 @@
-# JUST A FLASH CARD APP
+# Flash Card
+GUI application practice.
